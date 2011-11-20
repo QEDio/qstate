@@ -15,8 +15,6 @@ require 'qstate/plugins/confidential'
 require 'qstate/plugins/rails'
 require 'qstate/filter_model'
 
-
-
 module Qstate
   # Your code goes here...
 end
