@@ -2,11 +2,11 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginConfidential < Test::Unit::TestCase
-  include Qaram::Test::Plugin::Confidential
+  include Qstate::Test::Plugin::Confidential
   
   context "creating a Confidential object" do
     setup do
-      @confidential      = Qaram::Plugin::Confidential.new(:user => USER)
+      @confidential      = Qstate::Plugin::Confidential.new(:user => USER)
     end
 
     should "return the correct user value" do
@@ -19,18 +19,18 @@ class TestPluginConfidential < Test::Unit::TestCase
 
     context "and performing serialize/deserialize on it" do
       should "work with hash as data-interface" do
-        assert_equal @confidential, Qaram::Plugin::Confidential.from_serializable_hash(@confidential.serializable_hash)
+        assert_equal @confidential, Qstate::Plugin::Confidential.from_serializable_hash(@confidential.serializable_hash)
       end
 
       should "work with with deserialize" do
-        assert_equal @confidential, Qaram::Plugin::Confidential.deserialize(@confidential.serializable_hash, :hash)
+        assert_equal @confidential, Qstate::Plugin::Confidential.deserialize(@confidential.serializable_hash, :hash)
       end
     end
   end
 
   context "an empty Confidential object" do
     setup do
-      @confidential = Qaram::Plugin::Confidential.new()
+      @confidential = Qstate::Plugin::Confidential.new()
     end
 
     should "return false for 'present?'" do

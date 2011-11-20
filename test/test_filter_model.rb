@@ -2,11 +2,11 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestFilterModel < Test::Unit::TestCase
-  include Qaram::Test::FilterModel
+  include Qstate::Test::FilterModel
 
   context "creating a filtermodel from a rails params hash with two plugins" do
     setup do
-      @fm = Qaram::FilterModel.new(PARAMS_VIEW_DATETIME_MAPREDUCE)
+      @fm = Qstate::FilterModel.new(PARAMS_VIEW_DATETIME_MAPREDUCE)
     end
 
     should "initialize the correct number of plugin objects" do
@@ -14,7 +14,7 @@ class TestFilterModel < Test::Unit::TestCase
     end
 
     should "correctly set the DateTime-Plugin-Object" do
-      date_time = @fm.get_plugins(Qaram::Plugin::DateTime)
+      date_time = @fm.get_plugins(Qstate::Plugin::DateTime)
       assert_equal 1, date_time.size
       date_time = date_time[0]
 
@@ -24,7 +24,7 @@ class TestFilterModel < Test::Unit::TestCase
     end
 
     should "correctly set the MapReduce-Plugin-Object" do
-      map_reduce = @fm.get_plugins(Qaram::Plugin::MapReduce)
+      map_reduce = @fm.get_plugins(Qstate::Plugin::MapReduce)
       assert_equal 1, map_reduce.size
       map_reduce = map_reduce[0]
 
@@ -33,7 +33,7 @@ class TestFilterModel < Test::Unit::TestCase
 
     should "convert to json and back again" do
       json = @fm.json
-      new_fm = Qaram::FilterModel.new(json, :type => :json)
+      new_fm = Qstate::FilterModel.new(json, :type => :json)
       assert_equal @fm, new_fm
     end
 
@@ -64,7 +64,7 @@ class TestFilterModel < Test::Unit::TestCase
 
   context "creating a filtermodel from a rails params with special characters" do
     setup do
-      @fm = Qaram::FilterModel.new(PARAMS_VIEW_DATETIME_MAPREDUCE_SPECIALCHARACTERS)
+      @fm = Qstate::FilterModel.new(PARAMS_VIEW_DATETIME_MAPREDUCE_SPECIALCHARACTERS)
     end
 
     should "escape the special characters in the url" do
@@ -74,13 +74,13 @@ class TestFilterModel < Test::Unit::TestCase
 
   context "creating a filtermodel from a rails params hash with all plugins" do
     setup do
-      @fm = Qaram::FilterModel.new(PARAMS_ALL_PLUGINS)
-      @fm.plugins << Qaram::Plugin::Confidential.new(:user => "tester")
-      @fm.plugins << Qaram::Plugin::Rails.new(:controller => "suppa_controller")
+      @fm = Qstate::FilterModel.new(PARAMS_ALL_PLUGINS)
+      @fm.plugins << Qstate::Plugin::Confidential.new(:user => "tester")
+      @fm.plugins << Qstate::Plugin::Rails.new(:controller => "suppa_controller")
     end
 
     should "create all plugins" do
-      assert_equal Qaram::FilterModel.registered_plugins.size, @fm.plugins.size
+      assert_equal Qstate::FilterModel.registered_plugins.size, @fm.plugins.size
     end
 
     should "return a wonderful looking uri" do
@@ -130,7 +130,7 @@ class TestFilterModel < Test::Unit::TestCase
 
   context "creating a filtermodel with an empty hash" do
     setup do
-      @fm     = Qaram::FilterModel.new(PARAMS_EMPTY)
+      @fm     = Qstate::FilterModel.new(PARAMS_EMPTY)
     end
 
     should "initialize no plugins" do
@@ -153,7 +153,7 @@ class TestFilterModel < Test::Unit::TestCase
       end
 
       should "create the confidential plugin" do
-        assert_equal Qaram::Plugin::Confidential, @fm.confidential.class
+        assert_equal Qstate::Plugin::Confidential, @fm.confidential.class
       end
 
       should "set the correct user value within the confidential plugin" do
@@ -167,7 +167,7 @@ class TestFilterModel < Test::Unit::TestCase
       end
 
       should "create the confidential plugin" do
-        assert_equal Qaram::Plugin::View, @fm.view.class
+        assert_equal Qstate::Plugin::View, @fm.view.class
       end
 
       should "set the correct user value within the confidential plugin" do
@@ -201,10 +201,10 @@ class TestFilterModel < Test::Unit::TestCase
 
     context "and overwriting each plugin with an external one" do
       setup do
-        @query            = Qaram::Plugin::Query.new(:key => "a", :value => "b")
-        @view             = Qaram::Plugin::View.new(:view => "view")
-        @mapreduce        = Qaram::Plugin::MapReduce.new(:key => "x", :value => "z")
-        @mapreduce_emtpy  = Qaram::Plugin::MapReduce.new()
+        @query            = Qstate::Plugin::Query.new(:key => "a", :value => "b")
+        @view             = Qstate::Plugin::View.new(:view => "view")
+        @mapreduce        = Qstate::Plugin::MapReduce.new(:key => "x", :value => "z")
+        @mapreduce_emtpy  = Qstate::Plugin::MapReduce.new()
         @fm.query         = @query
         @fm.view          = @view
       end

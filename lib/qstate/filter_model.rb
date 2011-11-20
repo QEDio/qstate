@@ -3,20 +3,20 @@ require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/string/starts_ends_with'
 require 'active_support/core_ext/string/inflections'
 
-module Qaram
+module Qstate
   class FilterModel
     attr_accessor :plugins
 
     @@unserializable_plugins = [
-      {:clasz => Qaram::Plugin::Confidential},
-      {:clasz => Qaram::Plugin::Rails}
+      {:clasz => Qstate::Plugin::Confidential},
+      {:clasz => Qstate::Plugin::Rails}
     ]
 
     @@serializable_plugins = [
-      {:clasz => Qaram::Plugin::View},
-      {:clasz => Qaram::Plugin::DateTime},
-      {:clasz => Qaram::Plugin::MapReduce},
-      {:clasz => Qaram::Plugin::Query}
+      {:clasz => Qstate::Plugin::View},
+      {:clasz => Qstate::Plugin::DateTime},
+      {:clasz => Qstate::Plugin::MapReduce},
+      {:clasz => Qstate::Plugin::Query}
     ]
 
     def self.registered_plugins
@@ -145,7 +145,7 @@ module Qaram
       end
 
       if u && options[:param_start] && options[:type].eql?(:string)
-        u = Qaram::Constants::URI_PARAMS_START + u
+        u = Qstate::Constants::URI_PARAMS_START + u
       end
 
       return u

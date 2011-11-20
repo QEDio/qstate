@@ -1,5 +1,5 @@
 #- encoding: utf-8 -*-
-module Qaram
+module Qstate
   module Test
     module Plugin
       module Confidential

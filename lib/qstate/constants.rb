@@ -1,4 +1,4 @@
-module Qaram
+module Qstate
   module Constants
     URI_PARAMS_SEPARATOR      = "&"
     URI_PARAMS_ASSIGN         = "="

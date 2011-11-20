@@ -1,4 +1,4 @@
-module Qaram
+module Qstate
   module Plugin
     module Model
       class KeyValue

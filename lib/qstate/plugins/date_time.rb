@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
-require 'qaram/plugins/modules/base'
-require 'qaram/plugins/modules/uri'
+require 'qstate/plugins/modules/base'
+require 'qstate/plugins/modules/uri'
 
-module Qaram
+module Qstate
   module Plugin
     class DateTime
-      include Qaram::Plugin::Base
-      include Qaram::Plugin::Uri
+      include Qstate::Plugin::Base
+      include Qstate::Plugin::Uri
       
       PREFIX                    = "t_"
       FROM_ID                   = :from

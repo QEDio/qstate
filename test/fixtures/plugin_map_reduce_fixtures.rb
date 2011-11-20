@@ -1,4 +1,4 @@
-module Qaram
+module Qstate
   module Test
     module Plugin
       module MapReduce

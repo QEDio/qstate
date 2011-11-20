@@ -2,11 +2,11 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginRails < Test::Unit::TestCase
-  include Qaram::Test::Plugin::Rails
+  include Qstate::Test::Plugin::Rails
   
   context "creating a Rails object" do
     setup do
-      @rails      = Qaram::Plugin::Rails.new(:action => ACTION, :controller => CONTROLLER)
+      @rails      = Qstate::Plugin::Rails.new(:action => ACTION, :controller => CONTROLLER)
     end
 
     should "return the correct action value" do
@@ -19,18 +19,18 @@ class TestPluginRails < Test::Unit::TestCase
 
     context "and performing serialize/deserialize on it" do
       should "work with hash as data-interface" do
-        assert_equal @rails, Qaram::Plugin::Rails.from_serializable_hash(@rails.serializable_hash)
+        assert_equal @rails, Qstate::Plugin::Rails.from_serializable_hash(@rails.serializable_hash)
       end
 
       should "work with with deserialize" do
-        assert_equal @rails, Qaram::Plugin::Rails.deserialize(@rails.serializable_hash, :hash)
+        assert_equal @rails, Qstate::Plugin::Rails.deserialize(@rails.serializable_hash, :hash)
       end
     end
   end
 
   context "An empty Rails object" do
     setup do
-      @rails = Qaram::Plugin::Rails.new()
+      @rails = Qstate::Plugin::Rails.new()
     end
 
     should "return false for 'present?'" do

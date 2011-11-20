@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
-require 'qaram/plugins/modules/generic'
+require 'qstate/plugins/modules/generic'
 
-module Qaram
+module Qstate
   module Plugin
     class MapReduce
-      include Qaram::Plugin::Generic
+      include Qstate::Plugin::Generic
 
       PREFIX                    = "m_"
 

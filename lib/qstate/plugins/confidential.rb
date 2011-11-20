@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
-require 'qaram/plugins/modules/base'
-require 'qaram/plugins/modules/default_implementations'
+require 'qstate/plugins/modules/base'
+require 'qstate/plugins/modules/default_implementations'
 
-module Qaram
+module Qstate
   module Plugin
     class Confidential
-      include Qaram::Plugin::Base
-      include Qaram::Plugin::DefaultImplementations
+      include Qstate::Plugin::Base
+      include Qstate::Plugin::DefaultImplementations
 
       USER_ID       = :user
       attr_accessor :user

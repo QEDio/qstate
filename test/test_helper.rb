@@ -52,10 +52,10 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'test/unit'
 require 'shoulda'
-require 'qaram'
+require 'qstate'
 
 require 'fixtures/fixtures'
 
 class Test::Unit::TestCase
-  include Qaram
+  include Qstate
 end

@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
-require 'qaram/plugins/modules/base'
-require 'qaram/plugins/modules/uri'
-require 'qaram/plugins/models/key_value'
+require 'qstate/plugins/modules/base'
+require 'qstate/plugins/modules/uri'
+require 'qstate/plugins/models/key_value'
 
-module Qaram
+module Qstate
   module Plugin
     module Generic
       extend ActiveSupport::Concern
 
-      include Qaram::Plugin::Base
-      include Qaram::Plugin::Uri
+      include Qstate::Plugin::Base
+      include Qstate::Plugin::Uri
             
       KNOWN_REPRESENTATIONS     = [:uri, :json, :hash]
 

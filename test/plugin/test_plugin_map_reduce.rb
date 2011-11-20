@@ -2,11 +2,11 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginMapReduce < Test::Unit::TestCase
-  include Qaram::Test::Plugin::MapReduce
+  include Qstate::Test::Plugin::MapReduce
   context "create a MapReduceParams Object from" do
     context "a params like from the webbrowser" do
       setup do
-        @mrp = Qaram::Plugin::MapReduce.deserialize(EMIT_KEYS_LIKE_URL_PARAMS, :uri)
+        @mrp = Qstate::Plugin::MapReduce.deserialize(EMIT_KEYS_LIKE_URL_PARAMS, :uri)
       end
 
       should "execute correctly" do
@@ -16,7 +16,7 @@ class TestPluginMapReduce < Test::Unit::TestCase
 
     context "an empty hash" do
       setup do
-        @mrp = Qaram::Plugin::MapReduce.new()
+        @mrp = Qstate::Plugin::MapReduce.new()
       end
 
       should "return false for method 'present?'" do

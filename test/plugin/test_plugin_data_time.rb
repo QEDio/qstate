@@ -2,11 +2,11 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginDataTime < Test::Unit::TestCase
-  include Qaram::Test::Plugin::DateTime
+  include Qstate::Test::Plugin::DateTime
   
   context "creating a fully equipped DateTime object" do
     setup do
-      @date_time      = Qaram::Plugin::DateTime.new(:from => FROM_STR, :till => TILL_STR, :step_size => 1, :resolution => RESOLUTION)
+      @date_time      = Qstate::Plugin::DateTime.new(:from => FROM_STR, :till => TILL_STR, :step_size => 1, :resolution => RESOLUTION)
     end
 
     should "return the correct from value" do
@@ -27,28 +27,28 @@ class TestPluginDataTime < Test::Unit::TestCase
 
     context "and performing serialize/deserialize on it" do
       should "work with hash as data-interface" do
-        assert_equal @date_time, Qaram::Plugin::DateTime.from_serializable_hash(@date_time.serializable_hash)
+        assert_equal @date_time, Qstate::Plugin::DateTime.from_serializable_hash(@date_time.serializable_hash)
       end
 
       should "work with uri-string as data-interface " do
-        assert_equal @date_time, Qaram::Plugin::DateTime.from_uri(@date_time.uri)
+        assert_equal @date_time, Qstate::Plugin::DateTime.from_uri(@date_time.uri)
       end
 
       should "work with uri-hash as data-interface" do
-        assert_equal @date_time, Qaram::Plugin::DateTime.from_uri(@date_time.uri(:type => :hash))
+        assert_equal @date_time, Qstate::Plugin::DateTime.from_uri(@date_time.uri(:type => :hash))
       end
 
       should "work with with deserialize" do
-        assert_equal @date_time, Qaram::Plugin::DateTime.deserialize(@date_time.serializable_hash, :hash)
-        assert_equal @date_time, Qaram::Plugin::DateTime.deserialize(@date_time.uri, :uri)
-        assert_equal @date_time, Qaram::Plugin::DateTime.deserialize(@date_time.uri(:type => :hash), :uri)
+        assert_equal @date_time, Qstate::Plugin::DateTime.deserialize(@date_time.serializable_hash, :hash)
+        assert_equal @date_time, Qstate::Plugin::DateTime.deserialize(@date_time.uri, :uri)
+        assert_equal @date_time, Qstate::Plugin::DateTime.deserialize(@date_time.uri(:type => :hash), :uri)
       end
     end
   end
 
   context "creating a partially set DateTime object" do
     setup do
-      @date_time  = Qaram::Plugin::DateTime.new(:from => FROM_STR)
+      @date_time  = Qstate::Plugin::DateTime.new(:from => FROM_STR)
     end
 
     should "return correct uri" do
@@ -58,7 +58,7 @@ class TestPluginDataTime < Test::Unit::TestCase
 
   context "an empty DateTime object" do
     setup do
-      @date_time = Qaram::Plugin::DateTime.new()
+      @date_time = Qstate::Plugin::DateTime.new()
     end
 
     should "return false for method 'present?'" do

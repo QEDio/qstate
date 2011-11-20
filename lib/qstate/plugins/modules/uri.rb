@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module Qaram
+module Qstate
   module Plugin
     module Uri
       extend ActiveSupport::Concern
@@ -127,7 +127,7 @@ module Qaram
 
           if( output.is_a?(String) )
             # is the & char at the beginning desired?
-            separator = options[:separator] ? Qaram::Constants::URI_PARAMS_SEPARATOR : ""
+            separator = options[:separator] ? Qstate::Constants::URI_PARAMS_SEPARATOR : ""
             output += separator + uri_for_value(uri_key, value, options)
           elsif( output.is_a?(Hash) )
             output[uri_key] = value
@@ -144,17 +144,17 @@ module Qaram
 
           if(value.is_a?(Array))
             if( value.size == 1 )
-              ret_val = "#{key.to_s}#{Qaram::Constants::URI_PARAMS_ASSIGN}#{value[0].to_s}"
+              ret_val = "#{key.to_s}#{Qstate::Constants::URI_PARAMS_ASSIGN}#{value[0].to_s}"
             else
               separator = ''
 
               value.each do |v|
-                ret_val += separator + key.to_s+"[]"+Qaram::Constants::URI_PARAMS_ASSIGN+v.to_s
-                separator = Qaram::Constants::URI_PARAMS_SEPARATOR
+                ret_val += separator + key.to_s+"[]"+Qstate::Constants::URI_PARAMS_ASSIGN+v.to_s
+                separator = Qstate::Constants::URI_PARAMS_SEPARATOR
               end
             end
           else
-            ret_val = "#{key.to_s}#{Qaram::Constants::URI_PARAMS_ASSIGN}#{value.to_s}"
+            ret_val = "#{key.to_s}#{Qstate::Constants::URI_PARAMS_ASSIGN}#{value.to_s}"
           end
 
           return ret_val

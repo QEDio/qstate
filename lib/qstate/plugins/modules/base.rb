@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module Qaram
+module Qstate
   module Plugin
     module Base
       extend ActiveSupport::Concern

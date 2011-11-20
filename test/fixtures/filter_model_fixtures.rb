@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-module Qaram
+module Qstate
   module Test
     module FilterModel
-      include Qaram::Test::Base
+      include Qstate::Test::Base
 
       def self.create_uri(hsh)
         u = ""
