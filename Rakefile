@@ -12,3 +12,5 @@ end
 namespace :test do
   task :all => ['test']
 end
+
+task :default => :test
