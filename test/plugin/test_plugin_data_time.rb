@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginDataTime < Test::Unit::TestCase
   include Qstate::Test::Plugin::DateTime
-  
+
   context "creating a fully equipped DateTime object" do
     setup do
       @date_time      = Qstate::Plugin::DateTime.new(:from => FROM_STR, :till => TILL_STR, :step_size => 1, :resolution => RESOLUTION)
@@ -48,11 +48,11 @@ class TestPluginDataTime < Test::Unit::TestCase
 
   context "creating a partially set DateTime object" do
     setup do
-      @date_time  = Qstate::Plugin::DateTime.new(:from => FROM_STR)
+      @date_time  = Qstate::Plugin::DateTime.new(:from => "2011-01-01")
     end
 
     should "return correct uri" do
-      assert_equal "t_from=2010-12-31 23:00:00 UTC", @date_time.uri
+      assert_equal "t_from=#{Time.new(2011,01,01).utc}", @date_time.uri
     end
   end
 

@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+
+require "uri"
 module Qstate
   module Test
     module FilterModel
@@ -33,7 +35,7 @@ module Qstate
           ACTION                              =>  ACTION_VALUE,
           CONTROLLER                          =>  CONTROLLER_VALUE
         }
-      
+
       PARAMS_DATETIME =
         {
           PREFIXED_STEP_SIZE                => STEP_SIZE_VALUE,
