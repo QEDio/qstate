@@ -7,12 +7,12 @@ module Qstate
     class DateTime
       include Qstate::Plugin::Base
       include Qstate::Plugin::Uri
-      
+
       PREFIX                    = "t_"
       FROM_ID                   = :from
       TILL_ID                   = :till
       STEP_SIZE_ID              = :step_size
-      RESOLUTION_ID                = :resolution
+      RESOLUTION_ID             = :resolution
 
       attr_accessor :from, :till, :step_size, :resolution
 

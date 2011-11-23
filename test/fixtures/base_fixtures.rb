@@ -2,20 +2,17 @@
 module Qstate
   module Test
     module Base
-      # TODO: cleanup
-      USER                                  = :test
-      # TODO: end cleanup
 
       # Start: DateTIme-Plugin Params
       ### IDs
-      FROM                                  = Qstate::Plugin::DateTime::FROM_ID.to_s
-      TILL                                  = Qstate::Plugin::DateTime::TILL_ID.to_s
-      STEP_SIZE                             = Qstate::Plugin::DateTime::STEP_SIZE_ID.to_s
-      RESOLUTION                            = Qstate::Plugin::DateTime::RESOLUTION_ID.to_s
-      PREFIXED_FROM                         = Qstate::Plugin::DateTime.prefix+FROM
-      PREFIXED_TILL                         = Qstate::Plugin::DateTime.prefix+TILL
-      PREFIXED_STEP_SIZE                    = Qstate::Plugin::DateTime.prefix+STEP_SIZE
-      PREFIXED_RESOLUTION                   = Qstate::Plugin::DateTime.prefix+RESOLUTION
+      FROM                                  = "from"
+      TILL                                  = "till"
+      STEP_SIZE                             = "step_size"
+      RESOLUTION                            = "resolution"
+      PREFIXED_FROM                         = "t_"+FROM
+      PREFIXED_TILL                         = "t_"+TILL
+      PREFIXED_STEP_SIZE                    = "t_"+STEP_SIZE
+      PREFIXED_RESOLUTION                   = "t_"+RESOLUTION
 
       ### VAlues
       FROM_VALUE                            = "2011-06-05 22:00:00 UTC"
@@ -34,7 +31,7 @@ module Qstate
       # Start: MapReduce-Plugin Params
       ### IDs
       EMIT_KEY_PRODUCT                      = "key_that_needs_to_be_set"
-      PREFIXED_EMIT_KEY_PRODUCT             = Qstate::Plugin::MapReduce.prefix+EMIT_KEY_PRODUCT
+      PREFIXED_EMIT_KEY_PRODUCT             = "m_"+EMIT_KEY_PRODUCT
 
       ### Values
       EMIT_KEY_PRODUCT_VALUE_DEFAULT_VALUE  = -1
@@ -44,7 +41,7 @@ module Qstate
       # Start: Query-Plugin Params
       ### IDs
       PRODUCT_NAME                          = "product_name"
-      PREFIXED_PRODUCT_NAME                 = Qstate::Plugin::Query.prefix+PRODUCT_NAME
+      PREFIXED_PRODUCT_NAME                 = "q_"+PRODUCT_NAME
 
       ### Values
       PRODUCT_NAME_VALUE                    = "Elektromobil"
@@ -53,12 +50,12 @@ module Qstate
       # End: Query-Plugin Params
 
       # Start: View-Plugin Params
-      VIEW                                  = Qstate::Plugin::View::VIEW_ID.to_s
-      ACTION                                = Qstate::Plugin::View::ACTION_ID.to_s
-      CONTROLLER                            = Qstate::Plugin::View::CONTROLLER_ID.to_s
-      PREFIXED_VIEW                         = Qstate::Plugin::View.prefix+VIEW
-      PREFIXED_ACTION                       = Qstate::Plugin::View.prefix+ACTION
-      PREFIXED_CONTROLLER                   = Qstate::Plugin::View.prefix+CONTROLLER
+      VIEW                                  = "view"
+      ACTION                                = "action"
+      CONTROLLER                            = "controller"
+      PREFIXED_VIEW                         = "v_"+VIEW
+      PREFIXED_ACTION                       = "v_"+ACTION
+      PREFIXED_CONTROLLER                   = "v_"+CONTROLLER
 
       VIEW_VALUE                            = "jak4s view"
       ACTION_VALUE                          = "do something"
@@ -68,7 +65,7 @@ module Qstate
       # Start: Confidential-Plugin Params
       # There are no prefixed values in the confidential Plugin,
       # since it will not be de/serialized in the 'normal' way
-      USER                                  = Qstate::Plugin::Confidential::USER_ID.to_s
+      USER                                  = "user"
       USER_VALUE                            = "jak4"
       # End
     end
