@@ -62,12 +62,6 @@ module Qstate
       CONTROLLER_VALUE                      = "dashboard"
       # End: View-Plugin Params
 
-      # Start: Confidential-Plugin Params
-      # There are no prefixed values in the confidential Plugin,
-      # since it will not be de/serialized in the 'normal' way
-      USER                                  = "user"
-      USER_VALUE                            = "jak4"
-      # End
     end
   end
 end

@@ -48,16 +48,16 @@ class TestFilterModel < Test::Unit::TestCase
 
     context "and resetting values " do
       setup do
-        @fm.confidential.user = VIEW_VALUE
-        @fm.view.view = USER_VALUE
+        @fm.confidential.user = "test_user"
+        @fm.view.view = "some_view"
       end
 
       should "set the view value correctly" do
-        assert_equal USER_VALUE, @fm.view.view
+        assert_equal "some_view", @fm.view.view
       end
 
       should "set the user value correctly" do
-        assert_equal VIEW_VALUE, @fm.confidential.user
+        assert_equal "test_user", @fm.confidential.user
       end
     end
   end
@@ -145,7 +145,7 @@ class TestFilterModel < Test::Unit::TestCase
 
     context "and setting the user without the appropriate plugin" do
       setup do
-        @fm.confidential.user = USER_VALUE
+        @fm.confidential.user = "test_user"
       end
 
       should "create one plugin" do
@@ -157,13 +157,13 @@ class TestFilterModel < Test::Unit::TestCase
       end
 
       should "set the correct user value within the confidential plugin" do
-        assert_equal USER_VALUE, @fm.confidential.user
+        assert_equal "test_user", @fm.confidential.user
       end
     end
 
     context "and setting the view without the appropriate plugin" do
       setup do
-        @fm.view.view = VIEW_VALUE
+        @fm.view.view = "some_view"
       end
 
       should "create the confidential plugin" do
@@ -171,7 +171,7 @@ class TestFilterModel < Test::Unit::TestCase
       end
 
       should "set the correct user value within the confidential plugin" do
-        assert_equal VIEW_VALUE, @fm.view.view
+        assert_equal "some_view", @fm.view.view
       end
     end
 
@@ -184,7 +184,7 @@ class TestFilterModel < Test::Unit::TestCase
       should "not create a new KeyValue-Object" do
         assert_equal 1, @fm.query.values.size
       end
-      
+
       should "add the second value to the correct KeyValue-Object" do
         assert_equal 2, @fm.query.values.first.value.size
       end
