@@ -56,6 +56,15 @@ require 'qstate'
 
 require 'fixtures/fixtures'
 
+def create_uri(hsh)
+  u = ""
+  hsh.each_pair do |k,v|
+    separator = u.eql?("") ? "" : "&"
+    u += separator + k.to_s+"="+v.to_s
+  end
+  u
+end
+
 class Test::Unit::TestCase
   include Qstate
 end

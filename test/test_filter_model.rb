@@ -1,16 +1,25 @@
 # -*- encoding: utf-8 -*-
 require File.dirname(__FILE__) + '/test_helper.rb'
 
+require "uri"
+
 class TestFilterModel < Test::Unit::TestCase
-  include Qstate::Test::FilterModel
 
   context "creating a filtermodel from a rails params hash with two plugins" do
     setup do
-      @fm = Qstate::FilterModel.new(PARAMS_VIEW_DATETIME_MAPREDUCE)
+      @params =
+      {
+        "t_step_size"                => 7,
+        "t_resolution"               => 56,
+        "t_from"                          => "2011-06-05 22:00:00 UTC",
+        "t_till"                          => "2011-12-09 22:00:00 UTC",
+        "m_key_product"         => -1
+      }
+      @fm = Qstate::FilterModel.new(@params)
     end
 
     should "initialize the correct number of plugin objects" do
-      assert_equal 3, @fm.plugins.size
+      assert_equal 2, @fm.plugins.size
     end
 
     should "correctly set the DateTime-Plugin-Object" do
@@ -18,9 +27,10 @@ class TestFilterModel < Test::Unit::TestCase
       assert_equal 1, date_time.size
       date_time = date_time[0]
 
-      assert_equal FROM_DATE_VALUE_TIME, date_time.from
-      assert_equal TILL_DATE_VALUE_TIME, date_time.till
-      assert_equal STEP_SIZE_VALUE, date_time.step_size
+      assert_equal Time.parse("2011-06-05 22:00:00 UTC"), date_time.from
+      assert_equal Time.parse("2011-12-09 22:00:00 UTC"), date_time.till
+      assert_equal 7, date_time.step_size
+      assert_equal 56, date_time.resolution
     end
 
     should "correctly set the MapReduce-Plugin-Object" do
@@ -28,7 +38,7 @@ class TestFilterModel < Test::Unit::TestCase
       assert_equal 1, map_reduce.size
       map_reduce = map_reduce[0]
 
-      assert_equal EMIT_KEY_PRODUCT_VALUE_DEFAULT_VALUE, map_reduce.get_value(EMIT_KEY_PRODUCT.to_sym).value
+      assert_equal -1, map_reduce.get_value(:key_product).value
     end
 
     should "convert to json and back again" do
@@ -38,12 +48,13 @@ class TestFilterModel < Test::Unit::TestCase
     end
 
     should "generate the correct URI" do
-      assert_equal PARAMS_VIEW_DATETIME_MAPREDUCE_URI_START, @fm.uri(:encode => false)
+      assert_equal "?"+create_uri(@params), @fm.uri(:encode => false)
     end
 
     should "generate the correct URI encoded" do
-      assert_equal PARAMS_VIEW_DATETIME_MAPREDUCE_URI_START_ENCODED, @fm.uri(:encode => true)
-      assert_equal PARAMS_VIEW_DATETIME_MAPREDUCE_URI_START_ENCODED, @fm.uri
+      encoded_uri = URI.encode("?"+create_uri(@params))
+      assert_equal encoded_uri, @fm.uri(:encode => true)
+      assert_equal encoded_uri, @fm.uri
     end
 
     context "and resetting values " do
@@ -64,17 +75,36 @@ class TestFilterModel < Test::Unit::TestCase
 
   context "creating a filtermodel from a rails params with special characters" do
     setup do
-      @fm = Qstate::FilterModel.new(PARAMS_VIEW_DATETIME_MAPREDUCE_SPECIALCHARACTERS)
+      @params =
+      {
+        "t_step_size"                => 7,
+        "t_resolution"               => 56,
+        "t_from"                          => "2011-06-05 22:00:00 UTC",
+        "t_till"                          => "2011-12-09 22:00:00 UTC",
+        "m_key_product"         => -1,
+        "q_product_name" => "Ää, Öö, Üü",
+      }
+      @fm = Qstate::FilterModel.new(@params)
     end
 
     should "escape the special characters in the url" do
-      assert_equal PARAMS_VIEW_DATETIME_MAPREDUCE_SPECIALCHARACTERS_URI_ENCODED, @fm.uri
+      assert_equal URI.encode("?"+create_uri(@params)), @fm.uri
     end
   end
 
   context "creating a filtermodel from a rails params hash with all plugins" do
     setup do
-      @fm = Qstate::FilterModel.new(PARAMS_ALL_PLUGINS)
+      @params = {
+        "v_view"                       =>  "some view",
+        "t_step_size"                => 7,
+        "t_resolution"               => 56,
+        "t_from"                          => "2011-06-05 22:00:00 UTC",
+        "t_till"                          => "2011-12-09 22:00:00 UTC",
+        "m_key_product"         => -1,
+        "q_product_name" => "Elektromobil"
+      }
+
+      @fm = Qstate::FilterModel.new(@params)
       @fm.plugins << Qstate::Plugin::Confidential.new(:user => "tester")
       @fm.plugins << Qstate::Plugin::Rails.new(:controller => "suppa_controller")
     end
@@ -84,7 +114,7 @@ class TestFilterModel < Test::Unit::TestCase
     end
 
     should "return a wonderful looking uri" do
-      assert_equal PARAMS_ALL_PLUGINS_URI_ENCODED, @fm.uri
+      assert_equal URI.encode("?"+create_uri(@params)), @fm.uri
     end
 
     context "and looking at it's digest'" do
@@ -109,7 +139,7 @@ class TestFilterModel < Test::Unit::TestCase
       end
 
       should "have the correct view name" do
-        assert_equal VIEW_VALUE, @view.view
+        assert_equal @params["v_view"], @view.view
       end
     end
 
@@ -119,18 +149,18 @@ class TestFilterModel < Test::Unit::TestCase
       end
 
       should "have the correct number of values" do
-        assert_equal PARAMS_QUERY.size, @query.values.size
+        assert_equal 1, @query.values.size
       end
 
       should "have the correct value" do
-        assert_equal PRODUCT_NAME_VALUE, @query.values.first.value.first
+        assert_equal @params["q_product_name"], @query.values.first.value.first
       end
     end
   end
 
   context "creating a filtermodel with an empty hash" do
     setup do
-      @fm     = Qstate::FilterModel.new(PARAMS_EMPTY)
+      @fm     = Qstate::FilterModel.new({})
     end
 
     should "initialize no plugins" do
@@ -227,5 +257,3 @@ class TestFilterModel < Test::Unit::TestCase
     end
   end
 end
-
-
