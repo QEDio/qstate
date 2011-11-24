@@ -2,19 +2,18 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginRails < Test::Unit::TestCase
-  include Qstate::Test::Plugin::Rails
-  
+
   context "creating a Rails object" do
     setup do
-      @rails      = Qstate::Plugin::Rails.new(:action => ACTION, :controller => CONTROLLER)
+      @rails      = Qstate::Plugin::Rails.new(:action => "some_action", :controller => "some_controller")
     end
 
     should "return the correct action value" do
-      assert_equal ACTION, @rails.action
+      assert_equal "some_action", @rails.action
     end
 
     should "return the correct controller value" do
-      assert_equal CONTROLLER, @rails.controller
+      assert_equal "some_controller", @rails.controller
     end
 
     context "and performing serialize/deserialize on it" do
