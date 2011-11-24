@@ -2,7 +2,6 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginConfidential < Test::Unit::TestCase
-  include Qstate::Test::Plugin::Confidential
 
   context "creating a Confidential object" do
     setup do
