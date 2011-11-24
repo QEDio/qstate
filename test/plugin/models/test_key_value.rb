@@ -8,7 +8,7 @@ class TestClassesKeyValue < Test::Unit::TestCase
     end
 
     should "set 'value' to DEFAULT_VALUE" do
-
+      # TODO: ?
     end
   end
 end

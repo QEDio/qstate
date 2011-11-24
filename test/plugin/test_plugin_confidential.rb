@@ -3,27 +3,27 @@ require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestPluginConfidential < Test::Unit::TestCase
   include Qstate::Test::Plugin::Confidential
-  
+
   context "creating a Confidential object" do
     setup do
-      @confidential      = Qstate::Plugin::Confidential.new(:user => USER)
+      @confidential      = Qstate::Plugin::Confidential.new(:user => "alex")
     end
 
     should "return the correct user value" do
-      assert_equal USER, @confidential.user
+      assert_equal "alex", @confidential.user
     end
 
-    should "return an empty uri string" do
+    should "return a nil uri string" do
       assert_nil @confidential.uri
     end
 
     context "and performing serialize/deserialize on it" do
       should "work with hash as data-interface" do
-        assert_equal @confidential, Qstate::Plugin::Confidential.from_serializable_hash(@confidential.serializable_hash)
+        assert_equal @confidential, Qstate::Plugin::Confidential.from_serializable_hash({:user=>"alex"})
       end
 
       should "work with with deserialize" do
-        assert_equal @confidential, Qstate::Plugin::Confidential.deserialize(@confidential.serializable_hash, :hash)
+        assert_equal @confidential, Qstate::Plugin::Confidential.deserialize({:user=>"alex"}, :hash)
       end
     end
   end
