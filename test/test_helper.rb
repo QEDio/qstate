@@ -54,8 +54,6 @@ require 'test/unit'
 require 'shoulda'
 require 'qstate'
 
-require 'fixtures/fixtures'
-
 def create_uri(hsh)
   u = ""
   hsh.each_pair do |k,v|
