@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["jak4"]
   s.email       = ["jak4@qed.io"]
   s.homepage    = ""
-  s.summary     = %q{QState is a framework for paramters which go in and out of your application (URI, JSON, ..)}
-  s.description = %q{Use QState to hide the complexity of generating URLs for object-data you don't know anything about. Qaram talks to those objects and returns the URL if the corresponding functions are provided. It will also deserizalize the data into the corresponding objects'}
+  s.summary     = %q{QState is a framework for parameters which go in and out of your application (URI, JSON, ..)}
+  s.description = %q{Use QState to hide the complexity of generating URLs for object-data you don't know anything about. Qaram talks to those objects and returns the URL if the corresponding functions are provided. It will also deserialize the data into the corresponding objects.'}
 
   s.rubyforge_project = "qstate"
 
