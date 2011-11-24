@@ -1,20 +1,19 @@
 # -*- encoding: utf-8 -*-
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
-class TestPluginDataTime < Test::Unit::TestCase
-  include Qstate::Test::Plugin::DateTime
+class TestPluginDateTime < Test::Unit::TestCase
 
   context "creating a fully equipped DateTime object" do
     setup do
-      @date_time      = Qstate::Plugin::DateTime.new(:from => FROM_STR, :till => TILL_STR, :step_size => 1, :resolution => RESOLUTION)
+      @date_time      = Qstate::Plugin::DateTime.new(:from => "2011-02-01", :till => "2011-03-01", :step_size => 1, :resolution => 56)
     end
 
     should "return the correct from value" do
-      assert_equal FROM_TIME.utc, @date_time.from
+      assert_equal Time.parse("2011-02-01").utc, @date_time.from
     end
 
     should "return the correct till value" do
-      assert_equal TILL_TIME.utc, @date_time.till
+      assert_equal Time.parse("2011-03-01").utc, @date_time.till
     end
 
     should "return the correct step size" do
@@ -22,7 +21,7 @@ class TestPluginDataTime < Test::Unit::TestCase
     end
 
     should "return the correct resolution" do
-      assert_equal RESOLUTION, @date_time.resolution
+      assert_equal 56, @date_time.resolution
     end
 
     context "and performing serialize/deserialize on it" do
