@@ -76,10 +76,12 @@ module Qstate
             next
           end
 
-          if( created_plugin.nil? )
+          # we should always get at least an empty plugin instace
+          unless created_plugin
             raise Exception.new("Something during deserialization for Plugin #{plugin[:clasz]} didn't work! Deserialization returned nil'")
           end
 
+          # we are only interested in the plugin instance if it has meaningful values
           @plugins << created_plugin if created_plugin.present?
         end
       # in this case we know what plugins we have serialized
