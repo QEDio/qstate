@@ -5,11 +5,8 @@ module Qstate
   module Plugin
     class MapReduce
       include Qstate::Plugin::Generic
-
-      PREFIX                    = "m_"
-
       def self.prefix
-        PREFIX
+        "m_"
       end
     end
   end

@@ -8,14 +8,13 @@ module Qstate
       include Qstate::Plugin::Base
       include Qstate::Plugin::DefaultImplementations
 
-      PREFIX                    = ''
       ACTION_ID                 = :action
       CONTROLLER_ID             = :controller
 
       attr_accessor :controller, :action
 
       def self.prefix
-        PREFIX
+        ''
       end
 
       def initialize(ext_options = {})

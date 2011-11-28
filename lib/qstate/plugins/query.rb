@@ -5,11 +5,8 @@ module Qstate
   module Plugin
     class Query
       include Qstate::Plugin::Generic
-
-      PREFIX                    = "q_"
-
       def self.prefix
-        PREFIX
+        "q_"
       end
     end
   end

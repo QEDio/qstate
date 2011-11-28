@@ -8,7 +8,6 @@ module Qstate
       include Qstate::Plugin::Base
       include Qstate::Plugin::Uri
 
-      PREFIX                    = "t_"
       FROM_ID                   = :from
       TILL_ID                   = :till
       STEP_SIZE_ID              = :step_size
@@ -17,7 +16,7 @@ module Qstate
       attr_accessor :from, :till, :step_size, :resolution
 
       def self.prefix
-        PREFIX
+        "t_"
       end
 
       def initialize(ext_options = {})

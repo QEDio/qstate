@@ -8,7 +8,6 @@ module Qstate
       include Qstate::Plugin::Base
       include Qstate::Plugin::Uri
 
-      PREFIX                    = "v_"
       VIEW_ID                   = :view
       ACTION_ID                 = :action
       CONTROLLER_ID             = :controller
@@ -16,7 +15,7 @@ module Qstate
       attr_accessor :controller, :action, :view
 
       def self.prefix
-        PREFIX
+        "v_"
       end
 
       def initialize(ext_options = {})
