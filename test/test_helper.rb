@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
+require 'simplecov'
+SimpleCov.start do
+  add_filter "/test/"
+end
 
 require 'rubygems'
 require 'spork'
-require 'simplecov'
-SimpleCov.start
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
