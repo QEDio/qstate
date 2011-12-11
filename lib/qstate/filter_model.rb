@@ -213,7 +213,7 @@ module Qstate
       delete_plugin(type)
       @plugins << value
 
-      return self
+      return value
     end
     
     # TODO: this is currently completly nuts, but I foresee a time when a distinction between
