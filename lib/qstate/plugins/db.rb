@@ -29,10 +29,12 @@ module Qstate
       end
 
       def cache=(c)
-        if CACHE_VALUES.include?(c)
-          @cache = c
-        else
-          raise "Unknown Value for variable cache: #{c}"
+        if c.present?
+          if CACHE_VALUES.include?(c)
+            @cache = c
+          else
+            raise "Unknown Value for variable cache: #{c}"
+          end
         end
 
         self
