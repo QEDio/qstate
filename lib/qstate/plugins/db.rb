@@ -49,7 +49,7 @@ module Qstate
       def serializable_hash
         {
             CACHE_ID           => cache
-        }
+        }.delete_if{|k,v|v.blank?}
       end
 
       def uri_values(u, options)
