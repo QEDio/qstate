@@ -13,6 +13,7 @@ require 'qstate/plugins/query'
 require 'qstate/plugins/view'
 require 'qstate/plugins/confidential'
 require 'qstate/plugins/rails'
+require 'qstate/plugins/db'
 require 'qstate/filter_model'
 
 module Qstate
