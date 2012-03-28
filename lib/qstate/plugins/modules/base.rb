@@ -46,7 +46,7 @@ module Qstate
 
         # TODO: Overwrite this function in the class including this module
         def prefix
-          raise Exception.new("Sorry, but this one CLASS methods needs to be implemented!")
+          raise Exception.new('Sorry, but this one CLASS methods needs to be implemented!')
         end
       end
 
