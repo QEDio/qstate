@@ -21,9 +21,9 @@ module Qstate
       def initialize(ext_options = {})
         options = default_options.merge(ext_options)
 
-        self.controller   = options[CONTROLLER_ID]
-        self.action       = options[ACTION_ID]
-        self.view         = options[VIEW_ID]
+        @controller   = options[CONTROLLER_ID]
+        @action       = options[ACTION_ID]
+        @view         = options[VIEW_ID]
       end
 
       def default_options
