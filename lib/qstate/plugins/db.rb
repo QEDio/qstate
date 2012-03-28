@@ -7,9 +7,16 @@ module Qstate
       include Qstate::Plugin::Base
       include Qstate::Plugin::Uri
 
-      CACHE_ID                   = :cache
+      CACHE_ID                    = :cache
 
-      attr_accessor :cache
+      CACHE_VALUE_TRUE            = [ 't', 'true' ]
+      CACHE_VALUE_FALSE           = [ 'f', 'false' ]
+      CACHE_VALUE_RENEW           = [ 'r', 'renew']
+
+      CACHE_VALUES                = CACHE_VALUE_TRUE + CACHE_VALUE_FALSE + CACHE_VALUE_RENEW
+
+      # string, supported values: true/t, false/f, renew/r
+      attr_reader :cache
 
       def self.prefix
         "d_"
@@ -18,7 +25,17 @@ module Qstate
       def initialize(ext_options = {})
         options = default_options.merge(ext_options)
 
-        @cache   = options[CACHE_ID]
+        self.cache = options[CACHE_ID]
+      end
+
+      def cache=(c)
+        if CACHE_VALUES.include?(c)
+          @cache = c
+        else
+          raise "Unknown Value for variable cache: #{c}"
+        end
+
+        self
       end
 
       def default_options
