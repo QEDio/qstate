@@ -48,12 +48,12 @@ module Qstate
 
       def serializable_hash
         {
-            CACHE_ID           => nil
+            CACHE_ID           => cache
         }
       end
 
       def uri_values(u, options)
-        u = uri_for_key(u, CACHE_ID, view, options) if(cache.present?)
+        u = uri_for_key(u, CACHE_ID, cache, options) if(cache.present?)
 
         return u
       end
