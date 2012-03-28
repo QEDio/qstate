@@ -5,7 +5,7 @@ require 'digest/sha2'
 require 'core_ext/enumerable'
 
 require 'qstate/exceptions'
-require "qstate/version"
+require 'qstate/version'
 require 'qstate/constants'
 require 'qstate/plugins/date_time'
 require 'qstate/plugins/map_reduce'
