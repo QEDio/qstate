@@ -3,11 +3,9 @@ require 'qstate/plugins/modules/generic'
 
 module Qstate
   module Plugin
-    class MapReduce
-      include Qstate::Plugin::Generic
-
+    class MapReduceAggregation < Qstate::Plugin::MapReduce
       def self.prefix
-        "m_"
+        "ma_"
       end
     end
   end

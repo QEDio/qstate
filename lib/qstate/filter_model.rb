@@ -16,6 +16,7 @@ module Qstate
       {:clasz => Qstate::Plugin::View},
       {:clasz => Qstate::Plugin::DateTime},
       {:clasz => Qstate::Plugin::MapReduce},
+      {:clasz => Qstate::Plugin::MapReduceAggregation},
       {:clasz => Qstate::Plugin::Query},
       {:clasz => Qstate::Plugin::Db}
     ]

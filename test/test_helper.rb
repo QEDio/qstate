@@ -57,12 +57,20 @@ require 'shoulda'
 require 'qstate'
 
 def create_uri(hsh)
-  u = ""
+  u = ''
+  separator = '&'
+
   hsh.each_pair do |k,v|
-    separator = u.eql?("") ? "" : "&"
-    u += separator + k.to_s+"="+v.to_s
+    if Array.try_convert(v)
+      v.each do |value|
+        u += "#{k}[]=#{value}#{separator}"
+      end
+    else
+      u += "#{k}=#{v}#{separator}"
+    end
   end
-  u
+
+  u[0..-2]
 end
 
 class Test::Unit::TestCase
