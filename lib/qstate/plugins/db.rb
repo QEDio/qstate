@@ -9,8 +9,8 @@ module Qstate
 
       CACHE_ID                    = :cache
 
-      CACHE_VALUE_TRUE            = [ 't', 'true' ]
-      CACHE_VALUE_FALSE           = [ 'f', 'false' ]
+      CACHE_VALUE_TRUE            = [ true, 't', 'true' ]
+      CACHE_VALUE_FALSE           = [ false, 'f', 'false' ]
       CACHE_VALUE_RENEW           = [ 'r', 'renew']
 
       CACHE_VALUES                = CACHE_VALUE_TRUE + CACHE_VALUE_FALSE + CACHE_VALUE_RENEW
