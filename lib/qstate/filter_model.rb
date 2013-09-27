@@ -16,7 +16,8 @@ module Qstate
       {:clasz => Qstate::Plugin::View},
       {:clasz => Qstate::Plugin::DateTime},
       {:clasz => Qstate::Plugin::MapReduce},
-      {:clasz => Qstate::Plugin::MapReduceAggregation},
+      {:clasz => Qstate::Plugin::MapReduceAggregationKeys},
+      {:clasz => Qstate::Plugin::MapReduceAggregationValues},
       {:clasz => Qstate::Plugin::Query},
       {:clasz => Qstate::Plugin::Db}
     ]
@@ -55,7 +56,7 @@ module Qstate
     end
 
     def from_string(params, type)
-      if(type.eql?(:json))
+      if type.eql?(:json)
         from_hash(Yajl::Parser.parse(params).symbolize_keys_rec, type)
       else
         raise Exception.new("Sorry, but the combination of params type #{params.class} and provided type #{type} is not yet supported")
@@ -70,7 +71,7 @@ module Qstate
       # if we have a uri represenation, lets iterate over all plugins, and let them
       # pick what the can use from the uri-object (string or hash)
       # we do this, so we don't need to check what param is for what object
-      if( type.eql?(:uri))
+      if type.eql?(:uri)
         self.class.serializable_plugins.each do |plugin|
           begin
             created_plugin = plugin[:clasz].deserialize(params, type)
@@ -89,17 +90,17 @@ module Qstate
       # in this case we know what plugins we have serialized
       # that is, we did add some more option to the serialized object than with uri
       # so we have the luxury to call only those plugins that have actually been serialized
-      elsif( type.eql?(:json) || type.eql?(:hash) )
+      elsif type.eql?(:json) || type.eql?(:hash)
         known_plugin_classes = self.class.registered_plugins.collect{|p|p[:clasz].to_s}
         
         params[:plugins].each do |plugin|
-          unless( known_plugin_classes.include?(plugin[:clasz]))
+          unless known_plugin_classes.include?(plugin[:clasz])
             raise Exception.new("Plugin #{plugin[:clasz]} not registered. I only know about #{known_plugin_classes.join(",")}")
           end
 
           @plugins << plugin[:clasz].constantize.deserialize(plugin[:data], type)
           
-          if( @plugins[-1].nil? )
+          if @plugins[-1].nil?
             raise Exception.new("Something during deseralization for Plugin #{plugin[:clasz]} didn't work! Deserialization returned nil'")
           end
         end
@@ -200,7 +201,7 @@ module Qstate
       # TODO: only one object from every type
       plugin = get_plugins(type)[0]
 
-      if( plugin.nil? )
+      if plugin.nil?
         plugin = create_plugin(type, {})
       end
       
@@ -208,7 +209,7 @@ module Qstate
     end
 
     def set_plugin(type, value)
-      unless( type.eql?(value.class))
+      unless type.eql?(value.class)
         raise Exception.new("You want to set a plugin with type #{type} to a value with type #{value.class}. Sorry pal, this is a no go!")
       end
 

@@ -12,11 +12,11 @@ module Qstate
         end
 
         def uri_from_param(param)
-          if( param.is_a?(Hash))
+          if param.is_a?(Hash)
             return uri_from_hash(param)
-          elsif( param.is_a?(String))
+          elsif param.is_a?(String)
             return uri_from_string(param)
-          elsif( param.is_a?(Array))
+          elsif param.is_a?(Array)
             return uri_from_array(param)
           else
             raise Exception.new("Unknown type #{param.class}")
@@ -89,9 +89,9 @@ module Qstate
         #   :type => (nil|:string|:hash)
         def uri_init(options)
           # initialize uri value for this run
-          if(options[:type].nil? || options[:type].eql?(:string))
+          if options[:type].nil? || options[:type].eql?(:string)
             current_uri_output = ""
-          elsif(options[:type].eql?(:hash))
+          elsif options[:type].eql?(:hash)
             current_uri_output = {}
           else
             raise Exception.new("Unknown return-type #{options[:type]}")
@@ -125,11 +125,11 @@ module Qstate
           options = ext_options.merge(uri_separator(output, ext_options))
           uri_key = "#{self.class.prefix}#{key.to_s}".to_sym
 
-          if( output.is_a?(String) )
+          if output.is_a?(String)
             # is the & char at the beginning desired?
             separator = options[:separator] ? Qstate::Constants::URI_PARAMS_SEPARATOR : ""
             output += separator + uri_for_value(uri_key, value, options)
-          elsif( output.is_a?(Hash) )
+          elsif output.is_a?(Hash)
             output[uri_key] = value
           else
             raise Exception.new("Unknown type #{options[:type]} I should produce!")
@@ -142,8 +142,8 @@ module Qstate
         def uri_for_value(key, value, ext_options)
           ret_val = ''
 
-          if(value.is_a?(Array))
-            if( value.size == 1 )
+          if value.is_a?(Array)
+            if value.size == 1
               ret_val = "#{key.to_s}#{Qstate::Constants::URI_PARAMS_ASSIGN}#{value[0].to_s}"
             else
               separator = ''
@@ -163,7 +163,7 @@ module Qstate
         def uri_separator(output, ext_options)
           separator_hsh = {:separator => false}
 
-          if( output.present? || ext_options[:previous_uri_output].present? )
+          if output.present? || ext_options[:previous_uri_output].present?
             separator_hsh = {:separator => true}
           end
           
@@ -171,7 +171,7 @@ module Qstate
         end
 
         def uri_encode(u, options)
-          if(u.present? && options[:encode] && options[:type].eql?(:string))
+          if u.present? && options[:encode] && options[:type].eql?(:string)
             u = URI.escape(u)
           end
           return u
@@ -180,9 +180,9 @@ module Qstate
         def uri_merge(u, old_u)
           raise Exception.new("Params 'u' and 'old_u' don't match in class. 'u' is #{u.class}' but 'old_u' is #{old_u.class}") unless u.class.eql?(old_u.class)
 
-          if(u.is_a?(String))
+          if u.is_a?(String)
             u = old_u + u
-          elsif(u.is_a?(Hash))
+          elsif u.is_a?(Hash)
             u = old_u.merge(u)
           else
             raise Exception.new("Don't know how to merge class #{u.class}'")

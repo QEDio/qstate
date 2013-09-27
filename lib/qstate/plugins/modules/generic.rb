@@ -24,7 +24,7 @@ module Qstate
           options         = default_options.merge(ext_options)
           @values      = []
 
-          if( options.key?(:values) )
+          if options.key?(:values)
             add_values(Array(options[:values]))
           else
             # remove all keys we don't want to add here
@@ -51,13 +51,13 @@ module Qstate
           raise Exception.new("values need to be an array") unless values.is_a?(Array)
           return if values.size == 0
 
-          if( values.first.is_a?(Array))
+          if values.first.is_a?(Array)
             values.each {|value| add_value(value[0], options.merge({:value => value[1]}))}
-          elsif( values.first.is_a?(Hash))
+          elsif values.first.is_a?(Hash)
             values.each {|value| add_value(value[:key], options.merge({:value => value[:value]}))}
-          elsif( values.first.is_a?(String))
+          elsif values.first.is_a?(String)
             values.each {|value| add_value(value, options)}
-          elsif( values.first.is_a?(KeyValue))
+          elsif values.first.is_a?(KeyValue)
             values.each {|value| add_value(value.key, options.merge({:value => value.value}))}
           else
             raise Exception.new("The type #{values.first.class} is not supported as type in values")
@@ -79,15 +79,15 @@ module Qstate
           v = options[:value]
 
           # if we get something like "param=value"
-          if( key.is_a?(String) )
+          if key.is_a?(String)
             splitted_key = key.split("=")
             k = splitted_key[0].to_sym
             v = v || splitted_key[1]
           end
 
           # do we already have a KeyValue-Object with the current key?
-          if( has_value?(k) )
-            if( options[:replace] )
+          if has_value?(k)
+            if options[:replace]
               replace_value(Model::KeyValue.new(k, v))
             else
               get_value(k).add(v)

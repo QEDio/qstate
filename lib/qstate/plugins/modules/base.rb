@@ -31,7 +31,7 @@ module Qstate
         def from_json(params)
           hsh = params
 
-          if(params.is_a?(String))
+          if params.is_a?(String)
             hsh = Yajl::Parser.parse(params).symbolize_keys_rec
           end
 
