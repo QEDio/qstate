@@ -123,6 +123,10 @@ module Qstate
           @values << key_val
         end
 
+        def clear_values
+          @values = []
+        end
+
         def uri_values(u, options)
           values.each do |emit_key|
             u = uri_for_key(u, emit_key.key, emit_key.value, options) if(emit_key.value.present?)
