@@ -44,15 +44,15 @@ module Qstate
       end
 
       def from=(from)
-        @from = self.class.convert_to_utc(from)
+        @from = self.class.convert(from, utc: false)
       end
 
       def till=(till)
-        @till = self.class.convert_to_utc(till)
+        @till = self.class.convert(till, utc: false)
       end
 
       def step_size=(step_size)
-        @step_size = step_size.to_i
+        @step_size = step_size
       end
 
       def resolution=(resolution)
@@ -74,16 +74,18 @@ module Qstate
         !resolution.eql?(default_options[RESOLUTION_ID])
       end
 
-      def self.convert_to_utc(date)
+      def self.convert(date, options)
         return nil if date.nil?
 
-        if(date.is_a?(String))
-          converted_date = Time.parse(date).utc
-        elsif( date.is_a?(Time))
+        if date.is_a?(String)
+          converted_date = Time.parse(date)
+        elsif date.is_a?(Time)
           converted_date = date
         else
           raise Exception.new("not supported yet, #{date.class}")
         end
+
+        converted_date = converted_date.utc if options[:utc]
 
         return converted_date
       end
